@@ -16,17 +16,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import demo.geographic.models.SubStation;
-import demo.geographic.repositories.SubStationRepository;
 import demo.geographic.services.SubStationService;
 
 @RestController
 @RequestMapping("/substations")
-// @AllArgsConstructor
 public class SubStationController {
-    // private final SubStationService subStationService;
-
-    @Autowired
-    SubStationRepository subStationRepository;
 
     @Autowired
     SubStationService subStationService;
@@ -36,7 +30,7 @@ public class SubStationController {
         try {
             return new ResponseEntity<>(subStationService.getAllSubStations(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
@@ -51,17 +45,17 @@ public class SubStationController {
         try {
             return new ResponseEntity<>(subStationService.createSubStation(subStationData), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 	}
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteSubStationById(@PathVariable String id) {
         try {
-            subStationRepository.deleteById(id);
+            subStationService.deleteSubStation(id);
             return new ResponseEntity<>("Substation successfully deleted", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
