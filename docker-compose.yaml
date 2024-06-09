@@ -1,0 +1,51 @@
+# docker volume create 03DEmongoDB_V002
+# docker volume create 03DEmongoConfigDB_V002
+# docker compose -f mongo-docker-compose.yaml up
+
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest # not change "mongo" name
+    container_name: geomongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: adminuser
+      MONGO_INITDB_ROOT_PASSWORD: adminpass
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data
+
+  mongo-express:
+    image: mongo-express:latest # not change "mongo-express" name
+    container_name: geomongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: adminuser
+      ME_CONFIG_MONGODB_ADMINPASSWORD: adminpass
+      # ME_CONFIG_MONGODB_BASICAUTH_USERNAME: admin # to auth on browser api
+      # ME_CONFIG_MONGODB_BASICAUTH_PASSWORD: admin # to auth on browser api
+      ME_CONFIG_MONGODB_URL: mongodb://adminuser:adminpass@geomongo:27017/
+      # ME_CONFIG_MONGODB_URL: mongodb://adminusername:adminpassword@mongo_container_name:27017/
+      # ME_CONFIG_MONGODB_SERVER: mongo
+    # depends_on:
+    #   - mongo # name of the service
+      # mongo-express doesnt need any volume
+
+# volumes:
+#   mongoV1:
+#     external:
+#       true
+#   mongoConfigV2:
+#     external:
+#       true
+
+volumes:
+  data: {}
+
+networks:
+  default:
+    name: geomongo_network
