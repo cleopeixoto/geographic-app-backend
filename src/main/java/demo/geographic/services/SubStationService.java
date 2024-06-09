@@ -1,4 +1,4 @@
-package com.java.geographic.services;
+package demo.geographic.services;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,8 +8,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.java.geographic.models.SubStation;
-import com.java.geographic.repositories.SubStationRepository;
+import demo.geographic.models.SubStation;
+import demo.geographic.repositories.SubStationRepository;
 
 import lombok.RequiredArgsConstructor;
 

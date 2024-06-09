@@ -1,11 +1,11 @@
-package com.java.geographic.repositories;
+package demo.geographic.repositories;
 
 // import org.bson.types.ObjectId;
 import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.java.geographic.models.SubStation;
+import demo.geographic.models.SubStation;
 
 public interface SubStationRepository extends MongoRepository<SubStation, String> {
 

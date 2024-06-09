@@ -1,4 +1,4 @@
-package com.java.geographic.controllers;
+package demo.geographic.controllers;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.java.geographic.models.SubStation;
-import com.java.geographic.repositories.SubStationRepository;
-import com.java.geographic.services.SubStationService;
+import demo.geographic.models.SubStation;
+import demo.geographic.repositories.SubStationRepository;
+import demo.geographic.services.SubStationService;
 
 @RestController
 @RequestMapping("/substations")

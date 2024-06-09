@@ -1,4 +1,4 @@
-package com.java.geographic.models;
+package demo.geographic.models;
 
 import java.time.LocalDateTime;
 
