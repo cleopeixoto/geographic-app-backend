@@ -5,25 +5,20 @@ import java.time.LocalDateTime;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import jakarta.persistence.Column;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Max;
 
 import lombok.Data;
 
 @Data
 @Document(collection = "substation")
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = { "code" }) })
 public class SubStation {
     @Id
     @GeneratedValue
     private String _id;
 
-    @Column(name = "code")
+    @Indexed(unique = true)
     private String code;
 
     @Max(100)

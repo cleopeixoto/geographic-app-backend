@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.data.mongodb.core.index.Indexed;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Data;
@@ -22,7 +21,7 @@ public class Network {
     @NotNull
     private String subStationId;
 
-    @Column(unique = true)
+    @Indexed(unique = true)
     @Max(3)
     private String code;
 
