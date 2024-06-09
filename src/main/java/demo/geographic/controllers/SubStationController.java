@@ -41,11 +41,11 @@ public class SubStationController {
 
 
     @PostMapping
-	public ResponseEntity<SubStation> createSubStation(@RequestBody SubStation subStationData) {
+	public ResponseEntity<?> createSubStation(@RequestBody SubStation subStationData) {
         try {
             return new ResponseEntity<>(subStationService.createSubStation(subStationData), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 	}
 

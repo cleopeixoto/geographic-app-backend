@@ -21,27 +21,33 @@ public class SubStationService {
 	private SubStationRepository subStationRepository;
 
     public List<SubStation> getAllSubStations() {
-        return subStationRepository.findAll();
+        return this.subStationRepository.findAll();
     }
 
     public SubStation getSubStationById(String id) {
-        Optional<SubStation> subStation = subStationRepository.findById(id);
-        if (subStation.isPresent()) {
-            return subStation.get();
-        } else {
-            throw new NoSuchElementException("SubStation not found for this id: " + id);
-        }
+        Optional<SubStation> subStation = this.subStationRepository.findById(id);
+        if (subStation.isPresent()) return subStation.get();
+
+        throw new NoSuchElementException("SubStation not found for this id: " + id);
     }
 
-	public SubStation createSubStation(SubStation subStationData) {
+	public SubStation createSubStation(SubStation subStationData) throws Exception {
+        // Check missing fields
+        if (subStationData.getCode() == null) throw new Exception("Code is required.");
+
+        // Check if Network already exists with given code
+        Boolean existSubStation = this.subStationRepository.existsByCode(subStationData.getCode());
+        if (existSubStation) throw new Exception("There is already a Sub Station with this code: " + subStationData.getCode());
+
+        // Create Substation
         subStationData.setCreated(LocalDateTime.now());
-        return subStationRepository.save(subStationData);
+        return this.subStationRepository.save(subStationData);
 	}
 
     public void deleteSubStation(String id) {
-        SubStation subStation = subStationRepository.findById(id)
+        SubStation subStation = this.subStationRepository.findById(id)
             .orElseThrow(() -> new NoSuchElementException("SubStation not found for this id: " + id));
 
-        subStationRepository.delete(subStation);
+        this.subStationRepository.delete(subStation);
     }
 }
