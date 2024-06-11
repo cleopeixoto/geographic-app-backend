@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+       uri: mongodb+srv://admin:mongopass@cluster0.pto3m6p.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+       database: geomongodb

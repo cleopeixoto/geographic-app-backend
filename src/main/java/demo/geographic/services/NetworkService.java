@@ -1,6 +1,7 @@
 package demo.geographic.services;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -17,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class NetworkService {
 
     @Autowired
-	private NetworkRespository networkRepository;
+    private NetworkRespository networkRepository;
 
     @Autowired
     public SubStationService subStationService;
@@ -28,15 +29,18 @@ public class NetworkService {
 
     public Network getNetworkById(String id) {
         Optional<Network> network = this.networkRepository.findById(id);
-        if (network.isPresent()) return network.get();
+        if (network.isPresent())
+            return network.get();
 
         throw new NoSuchElementException("Network not found for this id: " + id);
     }
 
-	public Network createNetwork(Network networkData) throws Exception{
+    public Network createNetwork(Network networkData) throws Exception {
         // Check missing fields
-        if (networkData.getSubStationId() == null) throw new Exception("Substation ID is required.");
-        if (networkData.getCode() == null) throw new Exception("Code is required");
+        if (networkData.getSubStationId() == null)
+            throw new Exception("Substation ID is required.");
+        if (networkData.getCode() == null)
+            throw new Exception("Code is required");
 
         try {
             this.subStationService.getSubStationById(networkData.getSubStationId());
@@ -46,16 +50,17 @@ public class NetworkService {
 
         // Check if Network already exists with given code
         Boolean existNetwork = this.networkRepository.existsByCode(networkData.getCode());
-        if (existNetwork) throw new Exception("There is already an MT Network with this code: " + networkData.getCode());
+        if (existNetwork)
+            throw new Exception("There is already an MT Network with this code: " + networkData.getCode());
 
         // Create the network
         networkData.setCreated(LocalDateTime.now());
         return this.networkRepository.save(networkData);
-	}
+    }
 
     public void deleteNetwork(String id) {
         Network network = this.networkRepository.findById(id)
-            .orElseThrow(() -> new NoSuchElementException("Network not found for this id: " + id));
+                .orElseThrow(() -> new NoSuchElementException("Network not found for this id: " + id));
 
         this.networkRepository.delete(network);
     }
